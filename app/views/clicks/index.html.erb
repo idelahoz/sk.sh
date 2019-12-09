@@ -1,0 +1,30 @@
+<h1>Activity for: <%= @url.original_url %></h1>
+<h2>Url Token: <%= @url.token %></h2>
+
+<div class="col-md-12">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Browser</th>
+        <th>platform</th>
+        <th>User Agent</th>
+        <th>Ip</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <%- @clicks.each do |click| %>
+        <tr>
+          <td><%= click.id %></td>
+          <td><%= click.browser %></td>
+          <td><%= click.platform %></td>
+          <td><%= click.user_agent %></td>
+          <td><%= click.ip %></td>
+          <td><%= click.location %></td>
+        </tr>
+      <%- end %>
+    </tbody>
+  </table>
+</div>

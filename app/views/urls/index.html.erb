@@ -1,6 +1,4 @@
-<h1>Sh.sk!</h1>
 
-<!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <%- if @new_message.present? %>
     <h1>Message with short urls:</h1>
@@ -59,7 +57,7 @@
           <td><%= url.original_url %></td>
           <td><%= link_to url_for_token(url.token), url_for_token(url.token) %></td>
           <td><%= url.clicks_count %></td>
-          <td>action</td>
+          <td><%= link_to "Activity", url_clicks_path(url) %></td>
         </tr>
       <%- end %>
     </tbody>
