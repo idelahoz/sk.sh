@@ -3,21 +3,65 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <%- if @new_message.present? %>
-    <h1>Message with short urls</h1>
+    <h1>Message with short urls:</h1>
     <div class="well new-message">
-      <p><%= @new_message %></p>
+      <p><%= clickable_text(@new_message) %></p>
+      <div><button type="button" class="btn-default">Copy</button></div>
     </div>
+    <%- if @created_urls.any? %>
+      <h3>Shortened urls</h3>
+      <div class="col-sm-7">
+        <ul class="list-group">
+          <%- @created_urls.each do |url| %>
+            <li class="list-group-item">
+              <%= link_to url.original_url, url.original_url %> ||
+              <%= link_to url_for_token(url.token), url_for_token(url.token) %>
+              <button type="button" class="btn-default">Copy</button>
+            </li>
+          <%- end %>
+        </ul>
+      </div>
+    <%- else %>
+      <h3>Your message did not contain any url</h3>
+    <%- end %>
     <div class="btn">
       <%= link_to "Create new message", root_path, :class => "btn  btn-success" %>
     </div>
   <%- else %>
-    <h1>Message</h1>
-    <p>Paste your text here.</p>
+    <h1>Write your message here:</h1>
     <div class="form-group">
       <%= form_for :url do |f| %>
         <%= f.text_area :message, class: "form-control", rows:"3" %>
-        <%= f.submit :Process, class: 'btn btn-success'%>
+        <div class="btn">
+          <%= f.submit :Process, class: 'btn btn-success'%>
+        </div>
       <%- end %>
     </div>
   <%- end %>
 </div>  
+
+
+<div class="col-md-12">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Original url</th>
+        <th>Shortened url</th>
+        <th>Clicks</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%- urls.each do |url| %>
+        <tr>
+          <td><%= url.id %></td>
+          <td><%= url.original_url %></td>
+          <td><%= link_to url_for_token(url.token), url_for_token(url.token) %></td>
+          <td><%= url.clicks_count %></td>
+          <td>action</td>
+        </tr>
+      <%- end %>
+    </tbody>
+  </table>
+</div>
