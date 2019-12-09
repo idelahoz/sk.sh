@@ -2,18 +2,22 @@
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
-  <h1>Message</h1>
-  <p>Paste your text here.</p>
-  <div class="form-group">
-    <%= form_for :url do |f| %>
-      <%= f.text_area :message, class: "form-control", rows:"3" %>
-      <%= f.submit :Process, class: 'btn btn-success'%>
-    <%- end %>
-  </div>
   <%- if @new_message.present? %>
-    <h1>New Message</h1>
+    <h1>Message with short urls</h1>
     <div class="well new-message">
       <p><%= @new_message %></p>
+    </div>
+    <div class="btn">
+      <%= link_to "Create new message", root_path, :class => "btn  btn-success" %>
+    </div>
+  <%- else %>
+    <h1>Message</h1>
+    <p>Paste your text here.</p>
+    <div class="form-group">
+      <%= form_for :url do |f| %>
+        <%= f.text_area :message, class: "form-control", rows:"3" %>
+        <%= f.submit :Process, class: 'btn btn-success'%>
+      <%- end %>
     </div>
   <%- end %>
 </div>  
