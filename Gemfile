@@ -42,6 +42,12 @@ gem 'dotenv-rails', groups: [:development, :test]
 # css
 gem 'bootstrap', '~> 4.4.1'
 
+# Browser info detection
+gem 'browser'
+
+# Gelocation of requests
+gem 'geocoder'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-rails'

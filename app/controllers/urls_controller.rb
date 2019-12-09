@@ -13,8 +13,9 @@ class UrlsController < ApplicationController
   end
 
   def show
-    @url = Url.find_by!(token: params[:token])
-    redirect_to @url.original_url
+    url = Url.find_by!(token: params[:token])
+    process_click(url)
+    redirect_to url.original_url
   end
 
   def urls
@@ -29,5 +30,9 @@ class UrlsController < ApplicationController
 
   def process_message
     MessageProcessingService.call(message)
+  end
+
+  def process_click(url)
+    ClickRegistrationService.call(url, request) #This should be done on a side job to improve performance.
   end
 end

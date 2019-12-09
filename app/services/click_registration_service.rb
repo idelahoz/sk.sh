@@ -5,15 +5,20 @@ class ClickRegistrationService < ApplicationService
   end
 
   def call
-    urls = URI.extract(message, /http(s)?/)
-    urls.map { |url| remove_trailing_punctuation(url) }
+    url.clicks.create(
+      browser: browser.name,
+      platform: browser.platform.name,
+      user_agent: request.user_agent,
+      ip: request.remote_ip,
+      location: request.location.region
+    )
   end
 
   private
 
-  attr_reader :message
+  attr_reader :url, :request
 
-  def remove_trailing_punctuation(str)
-    str.chomp(",").chomp(".")
+  def browser
+    @browser ||= Browser.new(request.user_agent, accept_language: "en-us")
   end
 end

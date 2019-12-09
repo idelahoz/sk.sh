@@ -1,5 +1,5 @@
 class Url < ApplicationRecord
-  has_many :clicks, counter_cache: true
+  has_many :clicks
   scope :descendent, -> { order(id: :desc) }
   before_create :set_access_token
 
