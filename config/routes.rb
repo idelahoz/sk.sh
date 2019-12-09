@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: 'urls#index'
+  get "/:token", to: "urls#redirect"
+  post "/", to: "urls#create"
+
+  resources :urls, only: [] do
+    resources :clicks, only: :index
+  end
 end
